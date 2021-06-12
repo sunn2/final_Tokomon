@@ -11,10 +11,13 @@ let Tmad1;
 let Tmad2;
 //이미지
 
-// let myTokomon;
+let myTokomon;
 
-let x = [];
-let y = [];
+let xO = [];
+let yO = [];
+let xM = [];
+let yM = [];
+
 
 
 function preload(){
@@ -35,40 +38,68 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
     background(255);
     imageMode(CENTER);
-    // myTokomon = new Tokomon;
+
+    myTokomon = new Tokomon;
 }
 
 function draw() {
     background(255);
-    image(egg, windowWidth/2, windowHeight/2);
-    textSize(20);
-    text('start', windowWidth/2-16, windowHeight/2 + 100);
+//     image(egg, windowWidth/2, windowHeight/2);
+//     textSize(20);
+//     text('start', windowWidth/2-16, windowHeight/2 + 100); //시작화면
 
-    let d = dist(mouseX, mouseY, windowWidth/2, windowHeight/2);
-    if(d<100){
-        image(hatch, windowWidth/2, windowHeight/2);
-        if(mouseIsPressed){
-            image(poyomon, windowWidth/2, windowHeight/2, 150, 150);
-        }
-    }
-}
-
-// class Tokomon{
-
-//     constructor(){
-//         image(closedMouth, windowWidth/2, windowHeight/2);
-//         for(let i=0; i<10; i++){
-//             x[i] = random(width);
-//             y[i] = random(height);
-//     }
-// }
-    
-//     display(){
-//         for(let i=0; i<10; i++){
-//             image(orange, x[i], y[i]);
-//             image(mushroom, x[i], y[i]);
+//     let d = dist(mouseX, mouseY, windowWidth/2, windowHeight/2);
+//     if(d<100){
+//         image(hatch, windowWidth/2, windowHeight/2);
+//         if(mouseIsPressed){
+//             image(poyomon, windowWidth/2, windowHeight/2, 150, 150); //스타트 눌렀을 때
 //         }
 //     }
 // }
+            myTokomon.display();
+            myTokomon.move();
+}
+
+
+//게임 시작하기 
+class Tokomon{
+
+    constructor(){
+        for(let i=0; i<10; i++){
+            xO[i] = random(100, width-100);
+            yO[i] = random(100, height-100);
+            xM[i] = random(100, width-100);
+            yM[i] = random(100, height-100);
+
+            this.dO = dist(mouseX, mouseY, xO[i], yO[i]);
+            this.dM = dist(mouseX, mouseY, xM[i], yM[i]);
+            this.dT = dist(mouseX, mouseY, windowWidth/2, windowHeight/2);
+        }
+    }
+    
+    display(){
+        background(255);
+        image(closedMouth, windowWidth/2, windowHeight/2, 200, 200);
+
+        for(let i=0; i<10; i++){
+            image(orange, xO[i], yO[i], 100, 100);
+            image(mushroom, xM[i], yM[i], 100, 100);
+        }
+    }
+
+    move(){
+
+        if(this.dO < 50){
+            if(mouseIsPressed){
+                xO[i] = mouseX;
+                yO[i] = mouseY;
+                if(this.dT < 200){
+                    image(openedMouth, windowWidth/2, windowHeight/2, 210, 250);
+
+                }
+            }
+        }
+    }
+}
 
 
