@@ -15,7 +15,7 @@ let hungry;
 let myTokomon;
 let foods = [];
 
-let stage = 0; //0;시작 1;게임 2;엔딩
+let stage = 0; //0;시작 1;게임 2;배부른엔딩 3;배고픈엔딩
 let mouth = false;
 // let numberM;
 // let numberO;
@@ -70,8 +70,8 @@ function draw() {
         
         for (let i = 0; i < 10; i++) {
             foods[i].display();
-            // foods[i].move();
-            foods[i].mouseCheck();
+            foods[i].move();
+            // foods[i].mouseCheck();
         }
         // if(오렌지 다 먹으면){
         //     stage = 2;
@@ -89,35 +89,35 @@ function draw() {
     }
 }
 
-function mousePressed(){
-    if(stage == 1){
-        for (let i = 0; i < 10; i++) {
-            if(foods[i].overOrange = true){
-                foods[i].foodPressed();
-            }
-        }
-    }
-}
+// function mousePressed(){
+//     if(stage == 1){
+//         for (let i = 0; i < 10; i++) {
+//             if(foods[i].overOrange = true){
+//                 foods[i].foodPressed();
+//             }
+//         }
+//     }
+// }
 
-function mouseDragged(){
-    if(stage == 1){
-        for (let i = 0; i < 10; i++) {
-            if(foods[i].locked = true){
-                foods[i].foodDragged();
-            }
-        }
-    }
-}
+// function mouseDragged(){
+//     if(stage == 1){
+//         for (let i = 0; i < 10; i++) {
+//             if(foods[i].locked = true){
+//                 foods[i].foodDragged();
+//             }
+//         }
+//     }
+// }
 
-function mouseReleased(){
-    if(stage == 1){
-        for (let i = 0; i < 10; i++) {
-            if(foods[i].locked = false){
-                foods[i].foodReleased();
-            }
-        }
-    }
-}
+// function mouseReleased(){
+//     if(stage == 1){
+//         for (let i = 0; i < 10; i++) {
+//             if(foods[i].locked = false){
+//                 foods[i].foodReleased();
+//             }
+//         }
+//     }
+// }
 
 
 //게임 시작하기
@@ -171,80 +171,83 @@ class Food {
         }
     }
     
-    // move() {
+    move() {
+        this.d = dist(mouseX, mouseY, this.x, this.y);
+        this.dT = dist(mouseX, mouseY, width / 2, height / 2);
+        if (this.d < 40) {
+            this.foodSize = 120;
+            if (mouseIsPressed) {
+                this.x = mouseX;
+                this.y = mouseY;
+                    if (!this.taken && this.dT < 50) {
+                        mouth = true;
+                        this.taken = true;
+                        if(this.kind == 0){
+                            image(Tmad, windowWidth/2, windowHeight/2); //버섯 먹이면
+                            // this.numberM -= 1;
+                        }else if(this.kind == 1){
+                            image(iLoveOrange, windowWidth/2, windowHeight/2, 200, 200); //오렌지 먹이면
+                            // this.numberO -= 1;
+                        }
+                    } else {
+                        mouth = false;
+                    }
+            }
+        }else{
+            this.foodSize = 100;
+        }
+    }
+
+    // mouseCheck() {
     //     this.d = dist(mouseX, mouseY, this.x, this.y);
-    //     this.dT = dist(mouseX, mouseY, width / 2, height / 2);
     //     if (this.d < 40) {
-    //         if (mouseIsPressed) {
-    //             this.x = mouseX;
-    //             this.y = mouseY;
-    //                 if (!this.taken && this.dT < 50) {
-    //                     mouth = true;
-    //                     this.taken = true;
-    //                     if(this.kind == 0){
-    //                         image(Tmad, windowWidth/2, windowHeight/2); //버섯 먹이면
-    //                         // this.numberM -= 1;
-    //                     }else if(this.kind == 1){
-    //                         image(iLoveOrange, windowWidth/2, windowHeight/2, 200, 200); //오렌지 먹이면
-    //                         // this.numberO -= 1;
-    //                     }
-    //                 } else {
-    //                     mouth = false;
-    //                 }
+    //         this.overOrange = true;
+    //         if(!this.locked){
+    //             this.foodSize = 120;
     //         }
+    //     }else {
+    //         this.foodSize = 100;
+    //         this.overOrange = false;
     //     }
     // }
 
-    mouseCheck() {
-        this.d = dist(mouseX, mouseY, this.x, this.y);
-        if (this.d < 40) {
-            this.overOrange = true;
-            if(!this.locked){
-                this.foodSize = 120;
-            }
-        }else {
-            this.foodSize = 100;
-            this.overOrange = false;
-        }
-    }
 
+    // foodPressed(){
+    //     this.dT = dist(mouseX, mouseY, width / 2, height / 2);
 
-    foodPressed(){
-        this.dT = dist(mouseX, mouseY, width / 2, height / 2);
+    //     if(this.overOrange = true){
+    //         this.locked = true;
+    //         this.foodSize = 120;  
+    //         if (!this.taken && this.dT < 50) {
+    //             mouth = true;
+    //             this.taken = true;
+    //               if(this.kind == 0){
+    //                  image(Tmad, windowWidth/2, windowHeight/2); //버섯 먹이면
+    //                 //  this.numberM -= 1;
+    //              }else if(this.kind == 1){
+    //                 image(iLoveOrange, windowWidth/2, windowHeight/2, 200, 200); //오렌지 먹이면
+    //                 // this.numberO -= 1;
+    //                }
+    //         } else {
+    //                 mouth = false;
+    //             }         
+    //     }else{
+    //         this.locked = false;
+    //         this.foodSize = 100;
+    //     }
+    // }
 
-        if(this.overOrange = true){
-            this.locked = true;
-            this.foodSize = 120;  
-            if (!this.taken && this.dT < 50) {
-                mouth = true;
-                this.taken = true;
-                  if(this.kind == 0){
-                     image(Tmad, windowWidth/2, windowHeight/2); //버섯 먹이면
-                    //  this.numberM -= 1;
-                 }else if(this.kind == 1){
-                    image(iLoveOrange, windowWidth/2, windowHeight/2, 200, 200); //오렌지 먹이면
-                    // this.numberO -= 1;
-                   }
-            } else {
-                    mouth = false;
-                }         
-        }else{
-            this.locked = false;
-            this.foodSize = 100;
-        }
-    }
+    // foodDragged(){
+    //     if(this.locked = true) {
+    //         this.x = mouseX - this.xOffset;
+    //         this.y = mouseY - this.yOffset;
+    //         this.foodSize = 120;
+    //     }
+    // }
 
-    foodDragged(){
-        if(this.locked = true) {
-            this.x = mouseX - this.xOffset;
-            this.y = mouseY - this.yOffset;
-            this.foodSize = 120;
-        }
-    }
-
-    foodReleased(){
-        this.locked = false;
-        this.foodSize = 100;
-    }
+    // foodReleased(){
+    //     this.locked = false;
+    //     this.foodSize = 100;
+    // }
 
 }
