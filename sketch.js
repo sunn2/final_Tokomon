@@ -1,6 +1,5 @@
 let egg;
 let hatch;
-let poyomon;
 let giveMeOrange;
 let openedMouth;
 let closedMouth;
@@ -10,13 +9,14 @@ let mushroom;
 let Tmad;
 let full;
 let hungry;
+let looksGood;
 //이미지
 
 let myTokomon;
 let foods = []; 
 //class
 
-let stage = 0; //0;시작 1;게임 2;배부른엔딩 3;배고픈엔딩
+let stage = 0; //0;시작 1;인트로화면3초 2; 게임화면 3;배부른엔딩 4;배고픈엔딩
 let mouth = false;
 let startClick = false;
 
@@ -29,7 +29,6 @@ let rnd;
 function preload() {
     egg = loadImage('토코몬캡쳐/알.png');
     hatch = loadImage('토코몬캡쳐/깨진알.png');
-    poyomon = loadImage('토코몬캡쳐/포요몬.png');
     giveMeOrange = loadImage('토코몬캡쳐/오렌지먹고싶어.png');
     openedMouth = loadImage('토코몬캡쳐/토코몬입벌려.png');
     closedMouth = loadImage('토코몬캡쳐/토코몬기본.png');
@@ -39,6 +38,7 @@ function preload() {
     Tmad = loadImage('토코몬캡쳐/화남3.jpeg');
     full = loadImage('토코몬캡쳐/배부른토코몬.PNG');
     hungry = loadImage('토코몬캡쳐/배고픈토코몬.PNG');
+    looksGood = loadImage('토코몬캡쳐/오렌지먹고싶어.PNG');
 }
 
 function setup() {
@@ -73,18 +73,24 @@ function draw() {
             image(hatch, windowWidth / 2, windowHeight / 2);
             if (mouseIsPressed) {
                 background(255);
-                image(poyomon, windowWidth / 2, windowHeight / 2, 150, 150); //스타트 눌렀을 때
+                image(closedMouth, windowWidth / 2, windowHeight / 2, 150, 150); //스타트 눌렀을 때
                 text('아싸!', windowWidth / 2, windowHeight / 2 + 100);
                 startClick = true;
             }
-            if(!mouseIsPressed && startClick){
-                stage = 1; //게임화면으로 넘어감
-            }
         }
+        if(!mouseIsPressed && startClick){
+            stage = 1; 
+        }
+
     } else if (stage == 1) {
+        image(looksGood, windowWidth/2, windowHeight/2, 800, 600);
+        textSize(30);
+        text('오렌지..맛있겠다..', windowWidth/3, windowHeight/2 + 80);
+        setTimeout(goToStage2, 3000);
+
+    } else if (stage == 2) { //게임화면
         myTokomon.display();
         gameTime();
-
         for (let i = 0; i < 10; i++) {
             if (!foods[i].taken) {
                 foods[i].display();
@@ -96,29 +102,33 @@ function draw() {
         // }
         
         // if(오렌지 다 먹으면){
-        //     stage = 2;
+        //     stage = 3;
         // }
 
-    } else if (stage == 2) {
-        image(full, windowWidth / 2, windowHeight / 2, windowWidth / 1.5, windowHeight / 1.5);
-        textSize(30);
-        text('배불러..', windowWidth / 2 - 16, windowHeight * 0.9)
     } else if (stage == 3) {
-        image(hungry, windowWidth / 2, windowHeight / 2, windowWidth / 1.5, windowHeight / 1.5);
+        image(full, windowWidth / 2, windowHeight / 2, 800, 500);
         textSize(30);
-        text('배고파..', windowWidth / 2 - 16, windowHeight * 0.9)
+        text('배불러..', windowWidth / 2, windowHeight * 0.9);
+    } else if (stage == 4) {
+        image(hungry, windowWidth / 2, windowHeight / 2,800, 500);
+        textSize(30);
+        text('배고파..', windowWidth / 2, windowHeight * 0.9);
     }
+}
+
+function goToStage2() {
+    stage = 2;
 }
 
 function gameTime() {
     textSize(20);
     text("밥시간", windowWidth/2, windowHeight/10 - 25);
     text(timer, windowWidth/2, windowHeight/10);
-    if(frameCount %60==0 && timer > 0){
-        timer--;
+    if(frameCount % 60 == 0 && timer > 0){
+        timer --;
     }
-    if(timer==0){
-        stage = 3;
+    if(timer == 0){
+        stage = 4;
     }
 }
 
