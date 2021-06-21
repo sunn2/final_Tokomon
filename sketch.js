@@ -19,30 +19,27 @@ let foods = [];
 let stage = 0; //0;시작 1;인트로화면3초 2; 게임화면 3;배부른엔딩 4;배고픈엔딩
 let mouth = false;
 let startClick = false;
-
 let totalO = 0;
-
-let timer = 20;
+let timer = 15;
 let rnd;
 let areMoving = [];
 let hadSwitch = false;
 let isEatingO = 0;
 
 
-
 function preload() {
-egg = loadImage('토코몬캡쳐/알.png');
-hatch = loadImage('토코몬캡쳐/깨진알.png');
-giveMeOrange = loadImage('토코몬캡쳐/오렌지먹고싶어.png');
-openedMouth = loadImage('토코몬캡쳐/토코몬입벌려.png');
-closedMouth = loadImage('토코몬캡쳐/토코몬기본.png');
-iLoveOrange = loadImage('토코몬캡쳐/오렌지좋아.PNG');
-orange = loadImage('토코몬캡쳐/오렌지.PNG');
-mushroom = loadImage('토코몬캡쳐/독버섯.PNG');
-Tmad = loadImage('토코몬캡쳐/화남3.jpeg');
-full = loadImage('토코몬캡쳐/배부른토코몬.PNG');
-hungry = loadImage('토코몬캡쳐/배고픈토코몬.PNG');
-looksGood = loadImage('토코몬캡쳐/오렌지먹고싶어.PNG');
+    egg = loadImage('토코몬캡쳐/알.png');
+    hatch = loadImage('토코몬캡쳐/깨진알.png');
+    giveMeOrange = loadImage('토코몬캡쳐/오렌지먹고싶어.png');
+    openedMouth = loadImage('토코몬캡쳐/토코몬입벌려.png');
+    closedMouth = loadImage('토코몬캡쳐/토코몬기본.png');
+    iLoveOrange = loadImage('토코몬캡쳐/오렌지좋아.PNG');
+    orange = loadImage('토코몬캡쳐/오렌지.PNG');
+    mushroom = loadImage('토코몬캡쳐/독버섯.PNG');
+    Tmad = loadImage('토코몬캡쳐/화남3.jpeg');
+    full = loadImage('토코몬캡쳐/배부른토코몬.PNG');
+    hungry = loadImage('토코몬캡쳐/배고픈토코몬.PNG');
+    looksGood = loadImage('토코몬캡쳐/오렌지먹고싶어.PNG');
 }
 
 function setup() {
@@ -71,11 +68,14 @@ function draw() {
     if (stage == 0) {
         image(egg, windowWidth / 2, windowHeight / 2);
         text('부화하고 싶다..', windowWidth / 2, windowHeight / 2 + 100); //시작화면
+        textSize(15);
+        text('(천천히 눌러주면 할 수 있던데..)', windowWidth / 2, windowHeight / 2 + 120);
         if (d < 100) {
             image(hatch, windowWidth / 2, windowHeight / 2);
             if (mouseIsPressed) {
                 background(255);
                 image(closedMouth, windowWidth / 2, windowHeight / 2, 150, 150); //스타트 눌렀을 때
+                textSize(20);
                 text('아싸!', windowWidth / 2, windowHeight / 2 + 100);
                 startClick = true;
             }
@@ -86,7 +86,7 @@ function draw() {
 
     } else if (stage == 1) {
         image(looksGood, windowWidth / 2, windowHeight / 2, 800, 600);
-        textSize(30);
+        textSize(25);
         text('오렌지..맛있겠다..', windowWidth / 3, windowHeight / 2 + 80);
         setTimeout(goToStage2, 2500);
 
@@ -120,10 +120,11 @@ function draw() {
         image(full, windowWidth / 2, windowHeight / 2, 800, 500);
         textSize(30);
         text('배불러..', windowWidth / 2, windowHeight * 0.9);
-        
+
     } else if (stage == 4) {
         image(hungry, windowWidth / 2, windowHeight / 2, 800, 500);
         textSize(30);
+        fill(0);
         text('배고파..', windowWidth / 2, windowHeight * 0.9);
     }
 }
@@ -142,7 +143,9 @@ function gameTime() {
     if (timer == 0) {
         stage = 4;
     }
+
 }
+
 
 
 //게임 시작하기
@@ -157,7 +160,7 @@ class Tokomon {
             if (isEatingO == 1) {
                 image(iLoveOrange, windowWidth / 2, windowHeight / 2, 300, 300);
             } else {
-                image(Tmad, windowWidth / 2, windowHeight / 2, 300, 300);
+                image(Tmad, windowWidth / 2, windowHeight / 2, 400, 400);
             }
         } else {
             if (!mouth) {
@@ -185,9 +188,6 @@ class Food {
         this.overMushroom = false;
 
         this.locked = false;
-
-        this.takenM = false;
-        this.takenO = false;
 
         this.isPressed = false;
         this.isMoving = false;
@@ -229,27 +229,13 @@ class Food {
                 this.isMoving = false;
             }
         }
-
-        if (this.isPressed && mouth) { //food를 토코몬에서 놓으면
-            // mouth = false;
+        if (!mouseIsPressed && this.isPressed && mouth && !this.taken) { //food를 토코몬에서 놓으면
             hadSwitch = true;
             setTimeout(hadFoods(this.kind), 1000);
             this.isMoving = false;
             this.taken = true;
         }
-
-// if (!mouseIsPressed && this.isPressed && this.dT < 50) { //food를 토코몬에서 놓으면
-// mouth = false;
-// if (this.kind == 0) { //버섯 먹이면
-// image(Tmad, windowWidth / 2, windowHeight / 2, 300, 300);
-// } else { //오렌지 먹이면
-// image(iLoveOrange, windowWidth / 2, windowHeight / 2, 300, 300);
-// // countO++;
-// }
-// this.isMoving = false;
-// this.taken = true;
-// }
-}
+    }
 }
 
 function hadFoods(k) {
