@@ -29,15 +29,15 @@ let isEatingO = 0;
 function preload() {
     egg = loadImage('tokomonImages/egg.png');
     hatch = loadImage('tokomonImages/hatching.png');
-    openedMouth = loadImage('tokomonImages/openedmouth.png');
-    closedMouth = loadImage('tokomonImages/closedmouth.png');
+    openedMouth = loadImage('tokomonImages/openedmouth.PNG');
+    closedMouth = loadImage('tokomonImages/closedmouth.PNG');
     iLoveOrange = loadImage('tokomonImages/iloveorange.PNG');
     orange = loadImage('tokomonImages/orange.PNG');
     mushroom = loadImage('tokomonImages/mushroom.PNG');
     Tmad = loadImage('tokomonImages/mad.jpeg');
-    full = loadImage('tokomonImages/full.PNG');
-    hungry = loadImage('tokomonImages/hungry.PNG');
-    looksGood = loadImage('tokomonImages/looksgood.PNG');
+    full = loadImage('tokomonImages/full.png');
+    hungry = loadImage('tokomonImages/hungry.png');
+    looksGood = loadImage('tokomonImages/looksgood.png');
 }
 
 function setup() {
