@@ -1,6 +1,5 @@
 let egg;
 let hatch;
-let giveMeOrange;
 let openedMouth;
 let closedMouth;
 let iLoveOrange;
@@ -28,18 +27,17 @@ let isEatingO = 0;
 
 
 function preload() {
-    egg = loadImage('토코몬캡쳐/알.png');
-    hatch = loadImage('토코몬캡쳐/깨진알.png');
-    giveMeOrange = loadImage('토코몬캡쳐/오렌지먹고싶어.png');
-    openedMouth = loadImage('토코몬캡쳐/토코몬입벌려.png');
-    closedMouth = loadImage('토코몬캡쳐/토코몬기본.png');
-    iLoveOrange = loadImage('토코몬캡쳐/오렌지좋아.PNG');
-    orange = loadImage('토코몬캡쳐/오렌지.PNG');
-    mushroom = loadImage('토코몬캡쳐/독버섯.PNG');
-    Tmad = loadImage('토코몬캡쳐/화남3.jpeg');
-    full = loadImage('토코몬캡쳐/배부른토코몬.PNG');
-    hungry = loadImage('토코몬캡쳐/배고픈토코몬.PNG');
-    looksGood = loadImage('토코몬캡쳐/오렌지먹고싶어.PNG');
+    egg = loadImage('tokomonImages/egg.png');
+    hatch = loadImage('tokomonImages/hatching.png');
+    openedMouth = loadImage('tokomonImages/openedmouth.png');
+    closedMouth = loadImage('tokomonImages/closedmouth.png');
+    iLoveOrange = loadImage('tokomonImages/iloveorange.PNG');
+    orange = loadImage('tokomonImages/orange.PNG');
+    mushroom = loadImage('tokomonImages/mushroom.PNG');
+    Tmad = loadImage('tokomonImages/mad.jpeg');
+    full = loadImage('tokomonImages/full.PNG');
+    hungry = loadImage('tokomonImages/hungry.PNG');
+    looksGood = loadImage('tokomonImages/looksgood.PNG');
 }
 
 function setup() {
